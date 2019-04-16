@@ -61,6 +61,8 @@ public class DemoConfigFactory implements ConfigFactory {
         final FormClient formClient = new FormClient("http://localhost:8080/loginForm.jsp", new SimpleTestUsernamePasswordAuthenticator());
         final IndirectBasicAuthClient indirectBasicAuthClient = new IndirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
 
+        final TwoFactorHttpLoginClient twoFactorHttpLoginClient = new TwoFactorHttpLoginClient("http://localhost:8080/2falogin", new SimpleAuthenticator());
+
         // CAS
         final CasConfiguration configuration = new CasConfiguration("https://casserverpac4j.herokuapp.com/login");
         //final CasConfiguration configuration = new CasConfiguration("http://localhost:8888/cas/login");
@@ -101,7 +103,7 @@ public class DemoConfigFactory implements ConfigFactory {
         });
         directBasicAuthClient.setName("DirectBasicAuthClient");*/
 
-        final Clients clients = new Clients("http://localhost:8080/callback", oidcClient, saml2Client, facebookClient,
+        final Clients clients = new Clients("http://localhost:8080/callback", twoFactorHttpLoginClient, oidcClient, saml2Client, facebookClient,
                 twitterClient, formClient, indirectBasicAuthClient, casClient, stravaClient, parameterClient,
                 directBasicAuthClient, new AnonymousClient(), casProxy);
 

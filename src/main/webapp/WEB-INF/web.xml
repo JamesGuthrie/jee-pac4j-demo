@@ -266,16 +266,20 @@
     </filter-mapping>
 
     <filter>
-        <filter-name>FormFilter</filter-name>
+        <filter-name>TwoFactorFilter</filter-name>
         <filter-class>org.pac4j.jee.filter.SecurityFilter</filter-class>
         <init-param>
         	<param-name>clients</param-name>
-        	<param-value>FormClient</param-value>
+        	<param-value>TwoFactorHttpLoginClient</param-value>
+        </init-param>
+        <init-param>
+            <param-name>authorizers</param-name>
+            <param-value>mustBeAuth</param-value>
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>FormFilter</filter-name>
-        <url-pattern>/form/*</url-pattern>
+        <filter-name>TwoFactorFilter</filter-name>
+        <url-pattern>/2falogin</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
@@ -336,50 +340,6 @@
     <filter-mapping>
         <filter-name>mustBeAuthFilter</filter-name>
         <url-pattern>/logout</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>logoutFilter</filter-name>
-        <filter-class>org.pac4j.jee.filter.LogoutFilter</filter-class>
-        <init-param>
-            <param-name>defaultUrl</param-name>
-            <param-value>/?defaulturlafterlogout</param-value>
-        </init-param>
-        <init-param>
-            <param-name>destroySession</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>logoutFilter</filter-name>
-        <url-pattern>/logout</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>centralLogoutFilter</filter-name>
-        <filter-class>org.pac4j.jee.filter.LogoutFilter</filter-class>
-        <init-param>
-            <param-name>defaultUrl</param-name>
-            <param-value>http://localhost:8080/?defaulturlafterlogoutafteridp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>localLogout</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>centralLogout</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logoutUrlPattern</param-name>
-            <param-value>http://localhost:8080/.*</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>centralLogoutFilter</filter-name>
-        <url-pattern>/centralLogout</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
